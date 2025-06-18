@@ -2,23 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pokémon Battle Surprise!</title>
+    <title>Pokédex Viewer - Kanto Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🌟 Pokémon Battle! 🌟</h1>
-    <div id="game">
-        <div id="player">
-            <img id="player-img" src="https://img.pokemondb.net/sprites/black-white/anim/normal/pikachu.gif" alt="Your Pokémon">
-            <p id="player-hp">HP: 100</p>
-        </div>
-        <div id="enemy">
-            <img id="enemy-img" src="https://img.pokemondb.net/sprites/black-white/anim/normal/charmander.gif" alt="Enemy Pokémon">
-            <p id="enemy-hp">HP: 100</p>
-        </div>
-        <button id="attack-btn">⚡ Thunderbolt!</button>
-        <p id="message"></p>
+    <h1>📘 Kanto Pokédex Viewer</h1>
+    <div id="controls">
+        <input type="text" id="search" placeholder="Search Pokémon...">
+        <button id="random-btn">🎲 Random</button>
     </div>
+    <div id="pokedex"></div>
     <script src="script.js"></script>
 </body>
 </html>
