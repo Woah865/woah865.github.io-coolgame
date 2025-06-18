@@ -7,14 +7,17 @@ body {
     color: #333;
 }
 
+
 h1 {
     font-size: 2.5em;
     color: #e63946;
 }
 
+
 #controls {
     margin: 20px;
 }
+
 
 #search {
     padding: 10px;
@@ -25,6 +28,7 @@ h1 {
     margin-right: 10px;
 }
 
+
 #random-btn {
     padding: 10px 15px;
     font-size: 1em;
@@ -34,9 +38,11 @@ h1 {
     cursor: pointer;
 }
 
+
 #random-btn:hover {
     background-color: #f4b400;
 }
+
 
 #pokedex {
     display: flex;
@@ -44,6 +50,7 @@ h1 {
     justify-content: center;
     margin-top: 30px;
 }
+
 
 .pokemon-card {
     background-color: #ffffff;
@@ -57,11 +64,14 @@ h1 {
     transition: transform 0.2s;
 }
 
+
 .pokemon-card:hover {
     transform: scale(1.05);
 }
+
 
 .pokemon-card img {
     width: 96px;
     height: 96px;
 }
+
