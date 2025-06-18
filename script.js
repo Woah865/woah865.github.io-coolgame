@@ -1,35 +1,53 @@
-let playerHP = 100;
-let enemyHP = 100;
-const playerHPDisplay = document.getElementById("player-hp");
-const enemyHPDisplay = document.getElementById("enemy-hp");
-const message = document.getElementById("message");
-const attackBtn = document.getElementById("attack-btn");
+const pokedexContainer = document.getElementById("pokedex");
+const searchInput = document.getElementById("search");
+const randomBtn = document.getElementById("random-btn");
 
-attackBtn.addEventListener("click", () => {
-    if (playerHP <= 0 || enemyHP <= 0) return;
+const totalPokemon = 151;
+const baseURL = "https://img.pokemondb.net/sprites/black-white/anim/normal/";
 
-    // Player attacks
-    const playerDmg = Math.floor(Math.random() * 20) + 5;
-    enemyHP = Math.max(0, enemyHP - playerDmg);
-    enemyHPDisplay.textContent = `HP: ${enemyHP}`;
-    message.textContent = `Pikachu uses Thunderbolt! Deals ${playerDmg} damage!`;
+const pokedex = [];
 
-    if (enemyHP === 0) {
-        message.textContent += " 🔥 Charmander fainted! You win!";
-        attackBtn.disabled = true;
-        return;
+async function loadPokemon() {
+    for (let i = 1; i <= totalPokemon; i++) {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+        const data = await res.json();
+        pokedex.push({
+            name: data.name,
+            id: data.id,
+            sprite: `${baseURL}${data.name}.gif`
+        });
     }
+    renderPokedex(pokedex);
+}
 
-    // Enemy attacks after delay
-    setTimeout(() => {
-        const enemyDmg = Math.floor(Math.random() * 15) + 5;
-        playerHP = Math.max(0, playerHP - enemyDmg);
-        playerHPDisplay.textContent = `HP: ${playerHP}`;
-        message.textContent += `\nCharmander attacks back! Deals ${enemyDmg} damage!`;
+function renderPokedex(list) {
+    pokedexContainer.innerHTML = "";
+    list.forEach(pokemon => {
+        const card = document.createElement("div");
+        card.className = "pokemon-card";
 
-        if (playerHP === 0) {
-            message.textContent += " ⚰️ Pikachu fainted! You lose!";
-            attackBtn.disabled = true;
-        }
-    }, 800);
+        card.innerHTML = `
+            <img src="${pokemon.sprite}" alt="${pokemon.name}">
+            <h3>#${pokemon.id.toString().padStart(3, "0")}</h3>
+            <p>${capitalize(pokemon.name)}</p>
+        `;
+        pokedexContainer.appendChild(card);
+    });
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+searchInput.addEventListener("input", e => {
+    const val = e.target.value.toLowerCase();
+    const filtered = pokedex.filter(p => p.name.includes(val));
+    renderPokedex(filtered);
 });
+
+randomBtn.addEventListener("click", () => {
+    const rand = Math.floor(Math.random() * totalPokemon);
+    renderPokedex([pokedex[rand]]);
+});
+
+loadPokemon();
